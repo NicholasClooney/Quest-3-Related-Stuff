@@ -11,12 +11,12 @@ Extract, Prepare, and Install. All in one go.
 ## 📑 Table of Contents
 
 - [🌟 Why I Made This](#-why-i-made-this)
-- [🧰 Enabling Developer Mode on Your Devices](#-enabling-developer-mode-on-your-devices)
-  - [🔹 BlueStacks (Source Device)](#-bluestacks-source-device)
-  - [🔹 Meta Quest 3 (Target Device)](#-meta-quest-3-target-device)
 - [🚀 How to Use It](#-how-to-use-it)
   - [1. Extract and Install APKs](#1-extract-and-install-apks)
   - [2. Check If an App Is Installed](#2-check-if-an-app-is-installed)
+- [🧰 Enabling Developer Mode on Your Devices](#-enabling-developer-mode-on-your-devices)
+  - [🔹 BlueStacks (Source Device)](#-bluestacks-source-device)
+  - [🔹 Meta Quest 3 (Target Device)](#-meta-quest-3-target-device)
 - [🚧 How It Works (For the Curious)](#-how-it-works-for-the-curious)
 - [🚫 Known Apps That Do Not Work on Quest 3 Without Google Play Services](#-known-apps-that-do-not-work-on-quest-3-without-google-play-services)
   - [❌ Apps that fail to launch or require Play Services](#-apps-that-fail-to-launch-or-require-play-services)
@@ -34,36 +34,6 @@ Extracting and sideloading APKs — especially split APKs — can be a real pain
 - Manually downloading Android apps with Google Play Store using BlueStacks
 - Extracting all split APKs and sideload them onto my Quest 3.
 - Bonus: I wanted a reliable CLI interface with good UX — helpful messages, automatic folder creation, and clean adb integration.
-
----
-
-## 🧰 Enabling Developer Mode on Your Devices
-
-Before using the scripts, make sure both source and target devices have developer mode enabled. I am using BlueStacks as my source device here.
-
-### 🔹 BlueStacks (Source Device)
-
-1. Open BlueStacks and go to **Settings**.
-2. Navigate to the **Advanced** tab.
-3. Toggle **Android Debug Bridge (ADB)** to **On**.
-4. Click **Save changes**.
-5. Connect using:
-   ```bash
-   adb connect localhost:5555
-   ```
-
-👉 [BlueStacks ADB Setup Guide](https://support.bluestacks.com/hc/en-us/articles/23925869130381-How-to-enable-Android-Debug-Bridge-on-BlueStacks-5?utm_source=chatgpt.com)
-
-### 🔹 Meta Quest 3 (Target Device)
-
-1. Visit the [Meta Developer Portal](https://developer.oculus.com/manage/organizations/create/) and create an organization.
-2. Verify your Meta account (credit card or 2FA).
-3. Open the **Meta Quest app** on your phone:
-   - Tap **Menu** → **Devices** → Select your headset
-   - Tap **Headset Settings** → **Developer Mode**
-   - Toggle **Developer Mode** to **On**, then restart your headset
-
-👉 [Quest 3 Developer Mode Guide](https://knowledge.matts-digital.com/en/virtual-reality/meta/meta-quest-3/how-to-enable-developer-mode-on-the-meta-quest-3/?utm_source=chatgpt.com)
 
 ---
 
@@ -129,6 +99,36 @@ This will:
 - Help you identify which apps to extract and install to keep both devices in sync
 - List apps installed only on the source (e.g., BlueStacks)
 - Optionally list apps installed only on the target (e.g., Quest 3) if you specify `--show-extra-apps-on-target`
+
+---
+
+## 🧰 Enabling Developer Mode on Your Devices
+
+Before using the scripts, make sure both source and target devices have developer mode enabled. I am using BlueStacks as my source device here.
+
+### 🔹 BlueStacks (Source Device)
+
+1. Open BlueStacks and go to **Settings**.
+2. Navigate to the **Advanced** tab.
+3. Toggle **Android Debug Bridge (ADB)** to **On**.
+4. Click **Save changes**.
+5. Connect using:
+   ```bash
+   adb connect localhost:5555
+   ```
+
+👉 [BlueStacks ADB Setup Guide](https://support.bluestacks.com/hc/en-us/articles/23925869130381-How-to-enable-Android-Debug-Bridge-on-BlueStacks-5?utm_source=chatgpt.com)
+
+### 🔹 Meta Quest 3 (Target Device)
+
+1. Visit the [Meta Developer Portal](https://developer.oculus.com/manage/organizations/create/) and create an organization.
+2. Verify your Meta account (credit card or 2FA).
+3. Open the **Meta Quest app** on your phone:
+   - Tap **Menu** → **Devices** → Select your headset
+   - Tap **Headset Settings** → **Developer Mode**
+   - Toggle **Developer Mode** to **On**, then restart your headset
+
+👉 [Quest 3 Developer Mode Guide](https://knowledge.matts-digital.com/en/virtual-reality/meta/meta-quest-3/how-to-enable-developer-mode-on-the-meta-quest-3/?utm_source=chatgpt.com)
 
 ---
 
