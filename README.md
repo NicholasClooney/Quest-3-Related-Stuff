@@ -1,8 +1,12 @@
 # APK Extract & Install Toolkit for ADB
 
-Built to simplify the process of sideloading split APKs from Play Store apps
+Built to make it easy to extract APKs directly from the Play Store and sideload split apps onto your Quest 3, or any Android device, securely and efficiently.
 
-A friendly CLI toolkit that helps you extract APKs from one Android device (like an emulator or BlueStacks) and install them onto another (like your Meta Quest 3).
+This friendly CLI toolkit helps you pull apps from one device (like BlueStacks or an emulator) and install them onto another (like your Quest 3), without relying on third-party sources.
+
+Install a single app or an entire list with one command. Just provide the names, sit back, and let the script:
+
+Extract, Prepare, and Install. All in one go.
 
 ## 📑 Table of Contents
 
@@ -73,12 +77,20 @@ python apk-extract-and-install-with-adb.py \
   --target-device-id <target-device-id> \
   --install \
   --verbose \
-  --partial-app-name <app-name>
+  --partial-app-names <app-name-1 app-name-2 app-name-3>
 ```
+
+Note: --partial-app-names takes in one or more app names or the output from the compare-apps-across-devices.py like this
+  - com.apple.android.music
+  - com.calm.android
+  - com.openai.chatgpt
+  - com.pinterest
+  - com.reddit.frontpage
 
 This will:
 
-- Search for a package containing "", e.g. `firefox`, on your source device
+- Go through the list of apps
+- Search for a package containing `app-name`, e.g. `firefox`, on your source device
 - Pull all split APKs
 - Save them to `~/Documents/APKs/org.mozilla.firefox/`
 - Install them to your target device
