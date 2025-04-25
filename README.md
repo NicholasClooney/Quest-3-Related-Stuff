@@ -146,9 +146,11 @@ These apps have been tested and are known **not to function correctly** when sid
 
 ### ❌ Apps that fail to launch or require Play Services:
 
-- **Apple TV** — requires Play Store integration, fails to launch or shows errors
+- **Apple TV** — shows a "requires Play Store" error message
+- **Binge** — shows a sign-in screen but shows a "requires Play Store" error message after logging in...
 - **ChatGPT** — shows a "requires Play Store" error message
-- **YouTube** — fails to load or remains stuck on a blank screen
+- **Kayo Sports** — shows a "requires Play Store" error message
+- **YouTube** — shows a "requires Play Store" error message
 
 ### 📌 Reason
 
