@@ -50,27 +50,31 @@ def install_apks(target_device_id, apk_files, dry_run=False, verbose=False):
 
 def main():
     parser = argparse.ArgumentParser(description="Extract split APKs from a source device and optionally install them on a target device.")
-    parser.add_argument("--partial-app-name", required=True, help="Part of the app's package name")
     parser.add_argument("--source-device-id", required=True, help="ADB device ID to pull APKs from (e.g., emulator)")
     parser.add_argument("--target-device-id", required=False, help="ADB device ID to install APKs to (e.g., Quest 3)")
-    parser.add_argument("--output-dir", required=True, help="Directory to save APKs")
+    parser.add_argument("--output-dir", default=str(Path.home() / "Documents" / "APKs"), help="Base directory to save APKs (app folder will be created inside). Defaults to ~/Documents/APKs")
     parser.add_argument("--install", action="store_true", help="Install APKs on the target device after pulling")
     parser.add_argument("--dry-run", action="store_true", help="Print commands without running them")
     parser.add_argument("--verbose", action="store_true", help="Print commands as they run")
+    parser.add_argument("--partial-app-name", required=True, help="Part of the app's package name")
 
     args = parser.parse_args()
+    partial_app_name = args.partial_app_name
 
-    Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+    package_name = get_matching_package(args.source_device_id, partial_app_name)
+    output_base = Path(args.output_dir)
+    output_base.mkdir(parents=True, exist_ok=True)
+    app_output_dir = output_base / package_name
+    app_output_dir.mkdir(parents=True, exist_ok=True)
 
-    package_name = get_matching_package(args.source_device_id, args.partial_app_name)
     apk_paths = get_apk_paths(args.source_device_id, package_name)
-    pull_apks(args.source_device_id, apk_paths, args.output_dir, args.dry_run, args.verbose)
+    pull_apks(args.source_device_id, apk_paths, str(app_output_dir), args.dry_run, args.verbose)
 
     if args.install:
         if not args.target_device_id:
             print("--install was specified but --target-device-id is missing.")
             sys.exit(1)
-        apk_files = [str(Path(args.output_dir) / os.path.basename(path)) for path in apk_paths]
+        apk_files = [str(app_output_dir / os.path.basename(path)) for path in apk_paths]
         install_apks(args.target_device_id, apk_files, args.dry_run, args.verbose)
 
 if __name__ == "__main__":
