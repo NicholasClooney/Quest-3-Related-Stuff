@@ -13,12 +13,10 @@ def run(cmd, dry_run=False, verbose=False):
         subprocess.run(cmd, check=True)
 
 def get_matching_package(source_device_id, partial_name):
-    print(f"Finding package matching '{partial_name}' on device {source_device_id}...")
+    print(f"Finding package matching '[1;36m{partial_name}[0m' on device {source_device_id}...")
 
     result = subprocess.run(
-        [
-            "adb", "-s", source_device_id, "shell", "pm", "list", "packages"
-        ],
+        ["adb", "-s", source_device_id, "shell", "pm", "list", "packages"],
         stdout=subprocess.PIPE,
         check=True
     )
@@ -30,12 +28,22 @@ def get_matching_package(source_device_id, partial_name):
         print(f"No packages found matching '{partial_name}' on device {source_device_id}.")
         sys.exit(1)
     elif len(matches) > 1:
-        print(f"Multiple matches found for '{partial_name}':")
-        for m in matches:
-            print("  ", m)
-        sys.exit(1)
+        print(f"Multiple matches found for '[1;36m{partial_name}[0m':")
+        for idx, m in enumerate(matches):
+            print(f"  [[1;33m{idx}[0m] {m}")
 
-    print(f"✔ Found package: {matches[0]}")
+        try:
+            choice = input(f"Select a package to use [[2mdefault: 0[0m]: ").strip()
+            index = int(choice) if choice else 0
+            selected = matches[index]
+        except (ValueError, IndexError):
+            print("❌ Invalid selection.")
+            sys.exit(1)
+
+        print(f"✔ Selected package: {selected}")
+        return selected
+
+    print(f"✔ Selected package: {matches[0]}")
 
     return matches[0]
 
