@@ -91,6 +91,13 @@ def prepare_output_path(base_dir, package_name):
 
     return app_output_dir
 
+def parse_partial_app_names(raw_input):
+    lines = raw_input.strip().splitlines()
+    if len(lines) == 1:
+        lines = raw_input.strip().split()
+    cleaned = [line.strip().lstrip('-').strip() for line in lines if line.strip()]
+    return cleaned
+
 def main():
     parser = argparse.ArgumentParser(description="Extract split APKs from a source device and optionally install them on a target device.")
     parser.add_argument("--source-device-id", required=True, help="ADB device ID to pull APKs from (e.g., emulator)")
@@ -99,7 +106,7 @@ def main():
     parser.add_argument("--install", action="store_true", help="Install APKs on the target device after pulling")
     parser.add_argument("--dry-run", action="store_true", help="Print commands without running them")
     parser.add_argument("--verbose", action="store_true", help="Print commands as they run")
-    parser.add_argument("--partial-app-name", required=True, help="Part of the app's package name")
+    parser.add_argument("--partial-app-names", required=True, help="App name(s) to match. Can be a space-separated list, newline-separated, or formatted with '- prefix lines.')")
 
     args = parser.parse_args()
 
@@ -107,17 +114,20 @@ def main():
         print("--install was specified but --target-device-id is missing.")
         sys.exit(1)
 
-    partial_app_name = args.partial_app_name
-    package_name = get_matching_package(args.source_device_id, partial_app_name)
+    partial_app_names = parse_partial_app_names(args.partial_app_names)
 
-    app_output_dir = prepare_output_path(args.output_dir, package_name)
-    apk_paths = get_apk_paths(args.source_device_id, package_name)
+    for name in partial_app_names:
+        print(f"=== Processing: {name} ===")
+        package_name = get_matching_package(args.source_device_id, name)
 
-    pull_apks(args.source_device_id, apk_paths, str(app_output_dir), args.dry_run, args.verbose)
+        app_output_dir = prepare_output_path(args.output_dir, package_name)
+        apk_paths = get_apk_paths(args.source_device_id, package_name)
 
-    if args.install:
-        apk_files = [str(app_output_dir / os.path.basename(path)) for path in apk_paths]
-        install_apks(args.target_device_id, apk_files, args.dry_run, args.verbose)
+        pull_apks(args.source_device_id, apk_paths, str(app_output_dir), args.dry_run, args.verbose)
+
+        if args.install:
+            apk_files = [str(app_output_dir / os.path.basename(path)) for path in apk_paths]
+            install_apks(args.target_device_id, apk_files, args.dry_run, args.verbose)
 
 if __name__ == "__main__":
     main()
