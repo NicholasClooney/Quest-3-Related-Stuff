@@ -92,10 +92,25 @@ def prepare_output_path(base_dir, package_name):
     return app_output_dir
 
 def parse_partial_app_names(raw_input):
+    """Parses space-separated or multiline app names into a clean list."""
     lines = raw_input.strip().splitlines()
+
     if len(lines) == 1:
         lines = raw_input.strip().split()
+
     cleaned = [line.strip().lstrip('-').strip() for line in lines if line.strip()]
+
+    print("✔ Parsed app list:")
+    for app in cleaned:
+        print("  -", app)
+
+    if len(cleaned) > 1:
+        confirm = input(f"Proceed with installing all {len(cleaned)} apps? [Y/n]: ").strip().lower()
+        if confirm not in ('', 'y', 'yes'):
+            print("Aborted.")
+
+            sys.exit(0)
+
     return cleaned
 
 def main():
