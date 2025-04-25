@@ -18,6 +18,10 @@ Extract, Prepare, and Install. All in one go.
   - [1. Extract and Install APKs](#1-extract-and-install-apks)
   - [2. Check If an App Is Installed](#2-check-if-an-app-is-installed)
 - [🚧 How It Works (For the Curious)](#-how-it-works-for-the-curious)
+- [🚫 Known Apps That Do Not Work on Quest 3 Without Google Play Services](#-known-apps-that-do-not-work-on-quest-3-without-google-play-services)
+  - [❌ Apps that fail to launch or require Play Services](#-apps-that-fail-to-launch-or-require-play-services)
+  - [📌 Reason](#-reason)
+  - [✅ Workarounds](#-workarounds)
 
 ---
 
@@ -135,6 +139,33 @@ This will:
 - Prompts you for package selection if fuzzy matching returns more than one result.
 - Logs are clean and color-coded (dim adb commands, colored UX prompts).
 - All APKs are saved in `~/Documents/APKs/{package.name}/` by default.
+
+## 🚫 Known Apps That Do Not Work on Quest 3 Without Google Play Services
+
+These apps have been tested and are known **not to function correctly** when sideloaded onto a Quest 3 or other Android devices without Google Play Services and Play Store installed:
+
+### ❌ Apps that fail to launch or require Play Services:
+
+- **Apple TV** — requires Play Store integration, fails to launch or shows errors
+- **ChatGPT** — shows a "requires Play Store" error message
+- **YouTube** — fails to load or remains stuck on a blank screen
+
+### 📌 Reason
+
+These apps rely heavily on:
+
+- Google Play Services APIs
+- DRM or secure playback infrastructure
+- Google account sign-in and licensing mechanisms
+
+Because the Quest 3 does not ship with Google Mobile Services (GMS), these apps either crash or refuse to operate.
+
+### ✅ Workarounds
+
+- Use web versions through the Oculus Browser (e.g. youtube.com, tv.apple.com)
+
+> ℹ️ Installing Play Store or Google Play Services manually on the Quest 3 is **not recommended** and is unlikely to work without root, signature spoofing, or custom ROMs.
+
 
 ---
 
