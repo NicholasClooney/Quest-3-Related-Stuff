@@ -2,23 +2,30 @@
 
 Built to simplify the process of sideloading split APKs from Play Store apps
 
-
-
 A friendly CLI toolkit that helps you extract APKs from one Android device (like an emulator or BlueStacks) and install them onto another (like your Meta Quest 3).
+
+## 📑 Table of Contents
+
+- [🌟 Why I Made This](#-why-i-made-this)
+- [🧰 Enabling Developer Mode on Your Devices](#-enabling-developer-mode-on-your-devices)
+  - [🔹 BlueStacks (Source Device)](#-bluestacks-source-device)
+  - [🔹 Meta Quest 3 (Target Device)](#-meta-quest-3-target-device)
+- [🚀 How to Use It](#-how-to-use-it)
+  - [1. Extract and Install APKs](#1-extract-and-install-apks)
+  - [2. Check If an App Is Installed](#2-check-if-an-app-is-installed)
+- [🚧 How It Works (For the Curious)](#-how-it-works-for-the-curious)
 
 ---
 
 ## 🌟 Why I Made This
 
+I made this for myself because I want the peace of mind and security of using apps pulled directly from the official Google Play Store, without relying on any third-party APK sites or middlemen. But you're welcome to use it or extend it for your own workflows.
+
 Extracting and sideloading APKs — especially split APKs — can be a real pain, especially when using emulators like BlueStacks. This tool streamlines that process:
 
-- I manually download Android apps using BlueStacks and install them through the Play Store interface.
-- Then I can cleanly extract all split APKs and sideload them to my Quest 3.
+- Manually downloading Android apps with Google Play Store using BlueStacks
+- Extracting all split APKs and sideload them onto my Quest 3.
 - Bonus: I wanted a reliable CLI interface with good UX — helpful messages, automatic folder creation, and clean adb integration.
-
-I made this for myself because I want the peace of mind and security of using apps pulled directly from the official Google Play Store, without relying on any third-party APK sites or middlemen.
-
-But you're welcome to use it or extend it for your own workflows.
 
 ---
 
@@ -92,7 +99,7 @@ python check-apk-installed-on-device.py \
 
 ---
 
-## ⚙️ How It Works (For the Curious)
+## 🚧 How It Works (For the Curious)
 
 - Uses `adb shell pm list packages` and `adb shell pm path` to find and pull APKs.
 - Handles split APKs automatically and installs with `adb install-multiple`.
@@ -106,5 +113,5 @@ PRs and suggestions welcome!
 
 ---
 
-MIT License · Created with ❤️ by someone who loves their Quest 3
+MIT No Attribution License · Created with ❤️ by someone who loves their Quest 3
 
