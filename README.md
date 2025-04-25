@@ -97,6 +97,23 @@ python check-apk-installed-on-device.py \
   --partial-app-name <app-name>
 ```
 
+### 3. Compare Apps Across Devices
+
+Use `compare-apps-across-devices.py` to compare user-installed apps between two devices and find out what’s missing or extra.
+
+```bash
+python compare-apps-across-devices.py \
+  --source-device-id <source-device-id> \
+  --target-device-id <target-device-id> \
+  --verbose
+```
+
+This will:
+
+- Help you identify which apps to extract and install to keep both devices in sync
+- List apps installed only on the source (e.g., BlueStacks)
+- Optionally list apps installed only on the target (e.g., Quest 3) if you specify `--show-extra-apps-on-target`
+
 ---
 
 ## 🚧 How It Works (For the Curious)
