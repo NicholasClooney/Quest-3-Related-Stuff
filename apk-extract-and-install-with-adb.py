@@ -8,7 +8,7 @@ from pathlib import Path
 
 def run(cmd, dry_run=False, verbose=False):
     if verbose:
-        print("$", " ".join(cmd))
+        print("[90m$", " ".join(cmd), "[0m")  # gray color
     if not dry_run:
         subprocess.run(cmd, check=True)
 
@@ -61,21 +61,29 @@ def main():
     args = parser.parse_args()
     partial_app_name = args.partial_app_name
 
+    print(f"Finding package matching '{partial_app_name}' on device {args.source_device_id}...")
     package_name = get_matching_package(args.source_device_id, partial_app_name)
+    print(f"✔ Found package: {package_name}")
     output_base = Path(args.output_dir)
     output_base.mkdir(parents=True, exist_ok=True)
     app_output_dir = output_base / package_name
     app_output_dir.mkdir(parents=True, exist_ok=True)
 
+    print(f"Getting APK paths for {package_name}...")
     apk_paths = get_apk_paths(args.source_device_id, package_name)
+    print(f"✔ Found {len(apk_paths)} APK file(s) to pull")
+    print(f"Pulling APKs to {app_output_dir}...")
     pull_apks(args.source_device_id, apk_paths, str(app_output_dir), args.dry_run, args.verbose)
+    print("✔ APKs pulled successfully")
 
     if args.install:
         if not args.target_device_id:
             print("--install was specified but --target-device-id is missing.")
             sys.exit(1)
         apk_files = [str(app_output_dir / os.path.basename(path)) for path in apk_paths]
+        print(f"Installing APKs on device {args.target_device_id}...")
         install_apks(args.target_device_id, apk_files, args.dry_run, args.verbose)
+        print("✔ APKs installed successfully")
 
 if __name__ == "__main__":
     main()
