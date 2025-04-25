@@ -130,5 +130,5 @@ PRs and suggestions welcome!
 
 ---
 
-MIT No Attribution License · Created with ❤️ by someone who loves their Quest 3
-
+MIT No Attribution License · Created with ❤️ by someone who loves their Quest 3 &
+ChatGPT!
